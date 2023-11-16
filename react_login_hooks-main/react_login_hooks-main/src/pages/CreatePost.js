@@ -8,7 +8,7 @@ const CreatePost = () => {
         username: '',
         desc: '',
     });
-    const [images, setImages] = useState([]);
+    const [image, setImage] = useState([]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -19,8 +19,8 @@ const CreatePost = () => {
     };
 
     const handleImageChange = (e) => {
-        const selectedImages = Array.from(e.target.files);
-        setImages(selectedImages);
+        // const selectedImages = Array.from(e.target.files);
+        setImage(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
@@ -30,10 +30,10 @@ const CreatePost = () => {
             const formDataToSend = new FormData();
             formDataToSend.append('username', formData.username);
             formDataToSend.append('desc', formData.desc);
-
-            images.forEach((image, index) => {
-                formDataToSend.append('image', image);
-            });
+            formDataToSend.append('image', image);
+            // images.forEach((image, index) => {
+            //     formDataToSend.append('image', image);
+            // });
 
             const response = await axios.post('http://localhost:3500/posts', formDataToSend, {
                 headers: {
@@ -48,7 +48,7 @@ const CreatePost = () => {
                     username: '',
                     desc: '',
                 });
-                setImages([]);
+                setImage([]);
             } else {
                 console.error('Failed to create post');
             }
@@ -84,7 +84,7 @@ const CreatePost = () => {
                             required
                         />
                     </label>
-                    <input type="file" className="form-control-file" name="images" onChange={handleImageChange} multiple />
+                    <input type="file" className="form-control-file" name="image" onChange={handleImageChange}/>
                 </div>
                 <button type="submit">Create Post</button>
             </form>

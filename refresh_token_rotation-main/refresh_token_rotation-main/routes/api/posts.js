@@ -7,7 +7,6 @@ const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
 
-
 router.route('/')
     .get(postController.getAllPosts)
     .post(upload.single('image'), postController.createNewPost)

@@ -19,13 +19,15 @@ const Posts = () => {
                 const postDetails = response.data.map(post => ({
                     username: post.username,
                     desc: post.desc,
-                    image: post.image.data, // Assuming image data is available in the API response
+                    // image: post.image,
+                    imageUrl: post.imageUrl // Assuming image data is available in the API response
                 }));
-                postDetails.forEach(post => {
-                    const blob = new Blob([new Uint8Array(post.image)], { type: 'image/jpeg' });
-                    post.imageUrl = URL.createObjectURL(blob);
-                });
-                console.log(response.data);
+                // postDetails.forEach(post => {
+                //     const blob = new Blob([new Uint8Array(post.image)], { type: 'image/jpeg' });
+                //     post.imageUrl = URL.createObjectURL(blob);
+                // });
+                // console.log(response.data);
+                console.log(postDetails);
                 isMounted && setPosts(postDetails);
             } catch (err) {
                 console.error(err);
@@ -53,8 +55,8 @@ const Posts = () => {
                                 <div>
                                     <img
                                         src={post.imageUrl}
-                                        alt={`${post.username} ${post.desc}`}
-                                        style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                                        //alt={`${post.username} ${post.desc}`}
+                                        style={{ width: '150px', height: '150px', }}
                                     />
                                 </div>
                                 <div>{post.username} {post.desc}</div>
