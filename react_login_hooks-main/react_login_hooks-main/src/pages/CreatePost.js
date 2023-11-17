@@ -8,8 +8,9 @@ const CreatePost = () => {
         username: '',
         desc: '',
     });
-    const [image, setImage] = useState([]);
-
+    const [images, setImages] = useState([]);
+    // const [imageName2, setImage2] = useState([]);
+    // const [imageName3, setImage3] = useState([]);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -19,9 +20,19 @@ const CreatePost = () => {
     };
 
     const handleImageChange = (e) => {
-        // const selectedImages = Array.from(e.target.files);
-        setImage(e.target.files[0]);
+        const selectedImages = Array.from(e.target.files);
+        setImages(selectedImages);
     };
+
+    // const handleImageChange2 = (e) => {
+    //     // const selectedImages = Array.from(e.target.files);
+    //     setImage2(e.target.files[0]);
+    // };
+
+    // const handleImageChange3 = (e) => {
+    //     // const selectedImages = Array.from(e.target.files);
+    //     setImage3(e.target.files[0]);
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,7 +41,12 @@ const CreatePost = () => {
             const formDataToSend = new FormData();
             formDataToSend.append('username', formData.username);
             formDataToSend.append('desc', formData.desc);
-            formDataToSend.append('image', image);
+            images.forEach((image, index) => {
+                formDataToSend.append('images', image);
+            });
+            // formDataToSend.append('images', imageName2);
+            // formDataToSend.append('images', imageName3);
+            
             // images.forEach((image, index) => {
             //     formDataToSend.append('image', image);
             // });
@@ -48,7 +64,7 @@ const CreatePost = () => {
                     username: '',
                     desc: '',
                 });
-                setImage([]);
+                setImages([]);
             } else {
                 console.error('Failed to create post');
             }
@@ -84,7 +100,7 @@ const CreatePost = () => {
                             required
                         />
                     </label>
-                    <input type="file" className="form-control-file" name="image" onChange={handleImageChange}/>
+                    <input type="file" className="form-control-file" name="images" onChange={handleImageChange} multiple/>
                 </div>
                 <button type="submit">Create Post</button>
             </form>

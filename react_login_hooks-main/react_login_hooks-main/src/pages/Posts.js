@@ -20,7 +20,12 @@ const Posts = () => {
                     username: post.username,
                     desc: post.desc,
                     // image: post.image,
-                    imageUrl: post.imageUrl // Assuming image data is available in the API response
+                    imageUrl: post.imageUrl,
+                    imageUrl1: post.imageUrl1,
+                    imageUrl2: post.imageUrl2,
+                    imageUrl3: post.imageUrl3,
+                    imageUrl4: post.imageUrl4,
+                    imageUrl5: post.imageUrl5, // Assuming image data is available in the API response
                 }));
                 // postDetails.forEach(post => {
                 //     const blob = new Blob([new Uint8Array(post.image)], { type: 'image/jpeg' });
@@ -55,6 +60,31 @@ const Posts = () => {
                                 <div>
                                     <img
                                         src={post.imageUrl}
+                                        //alt={`${post.username} ${post.desc}`}
+                                        style={{ width: '150px', height: '150px', }}
+                                    />
+                                                                        <img
+                                        src={post.imageUrl1}
+                                        //alt={`${post.username} ${post.desc}`}
+                                        style={{ width: '150px', height: '150px', }}
+                                    />
+                                                                        <img
+                                        src={post.imageUrl2}
+                                        //alt={`${post.username} ${post.desc}`}
+                                        style={{ width: '150px', height: '150px', }}
+                                    />
+                                                                        <img
+                                        src={post.imageUrl3}
+                                        //alt={`${post.username} ${post.desc}`}
+                                        style={{ width: '150px', height: '150px', }}
+                                    />
+                                                                        <img
+                                        src={post.imageUrl4}
+                                        //alt={`${post.username} ${post.desc}`}
+                                        style={{ width: '150px', height: '150px', }}
+                                    />
+                                                                        <img
+                                        src={post.imageUrl5}
                                         //alt={`${post.username} ${post.desc}`}
                                         style={{ width: '150px', height: '150px', }}
                                     />
