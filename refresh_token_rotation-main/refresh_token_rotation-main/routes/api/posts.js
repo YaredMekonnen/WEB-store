@@ -9,7 +9,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.route('/')
     .get(postController.getAllPosts)
-    .post(upload.single('image'), postController.createNewPost)
+    .post(upload.array('images',12), postController.createNewPost)
     .put(postController.updatePost)
     .delete(postController.deletePost);
 

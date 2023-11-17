@@ -18,13 +18,9 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
-    // image: {
-    //     type: Buffer,
-    //     required: true
-         
-    // },
-    imageName: {
-        type: String,
+    images: {
+        type: [String],
+        required: true
     },
     refreshToken: [String]
 });
