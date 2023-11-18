@@ -22,8 +22,20 @@ const postSchema = new Schema({
         type: [String],
         required: true
     },
+    email: { type: String, required: true},
+    
     refreshToken: [String]
 });
 
 module.exports = mongoose.model('Post', postSchema);
-//
+
+
+// userEmail: String,
+// line_items:Object,
+// name:String,
+// email:String,
+// city:String,
+// postalCode:String,
+// streetAddress:String,
+// country:String,
+// paid:Boolean,

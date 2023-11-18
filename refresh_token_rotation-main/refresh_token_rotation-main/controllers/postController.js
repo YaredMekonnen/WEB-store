@@ -1,11 +1,9 @@
 const Post = require('../model/Post');
 const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
 const crypto = require('crypto');
-// const dotenv = requrie('dotenv');
 const sharp = require('sharp')
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
-// dotenv.config()
 
 const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
 
@@ -22,150 +20,141 @@ const s3 = new S3Client({
      region: bucketRegion
 
 })
+
+
 const getAllPosts = async (req, res) => {
-    const posts = await Post.find();
-    console.log(req.body);
-    console.log(posts)
+  // console.log(req.body)
+   try {
+     const posts = await Post.find();
+     console.log(posts)
+     if (!posts || posts.length === 0) {
+       return res.status(204).json({ 'message': 'No posts found.' });
+     }
+ 
+     const removeOuterQuotes = (arrayWithQuotes) => {
+       const arrayWithoutQuotes = arrayWithQuotes.map((str) => {
+           // Use replace to remove only the outer single or double quotes
+           return str.replace(/^['"]|['"]$/g, '');
+       });
+   
+       return arrayWithoutQuotes;
+   };
 
+   for (let post of posts) {
+    const arrayWithQuotes = post.images;
+    const arrayWithoutQuotes = removeOuterQuotes(arrayWithQuotes);
+    let arrayimages= []; 
+    // Generate signed URLs for the images
+    for (let i = 0; i < arrayWithoutQuotes.length; i++) {
 
-    for(const post of posts) {
+      try {
 
-        const getObjectParams = {
+        // const url = `imageUrl${i}`;
+        url = await getSignedUrl(
+          s3,
+          new GetObjectCommand({
             Bucket: bucketNAME,
-            Key: post.images[0],
-            }
-
-        const getObjectParams1 = {
-            Bucket: bucketNAME,
-            Key: post.images[1],
-            }
-
-        const getObjectParams2 = {
-            Bucket: bucketNAME,
-            Key: post.images[2],
-            }
-
-        const getObjectParams3 = {
-                Bucket: bucketNAME,
-                Key: post.images[3],
-                }
-    
-        const getObjectParams4 = {
-                Bucket: bucketNAME,
-                Key: post.images[4],
-                }
-    
-        const getObjectParams5 = {
-                Bucket: bucketNAME,
-                Key: post.images[5],
-                }
-        const command = new GetObjectCommand(getObjectParams);
-        const command1 = new GetObjectCommand(getObjectParams1);
-        const command2 = new GetObjectCommand(getObjectParams2);
-        const command3 = new GetObjectCommand(getObjectParams3);
-        const command4 = new GetObjectCommand(getObjectParams4);
-        const command5 = new GetObjectCommand(getObjectParams5);
-        const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
-        const url1 = await getSignedUrl(s3, command1, { expiresIn: 3600 });
-        const url2 = await getSignedUrl(s3, command2, { expiresIn: 3600 });
-        const url3 = await getSignedUrl(s3, command3, { expiresIn: 3600 });
-        const url4 = await getSignedUrl(s3, command4, { expiresIn: 3600 });
-        const url5 = await getSignedUrl(s3, command5, { expiresIn: 3600 });
-        post.imageUrl = url;
-        post.imageUrl1 = url1;
-        post.imageUrl2 = url2;
-        post.imageUrl3 = url3;
-        post.imageUrl4 = url4;
-        post.imageUrl5 = url5;
-        console.log(post);
+            Key: arrayWithoutQuotes[i]
+          }),
+          { expiresIn: 3600 } // 1 hour
+        );
+        arrayimages.push(url);
+      } catch (error) {
+        console.error(`Error generating signed URL for image ${i}:`, error);
+      }
+    }
+    post.images = arrayimages;
+    console.log(post);
+  }
+     // Send the response after all posts have been processed
+     console.log(posts)
+     res.json(posts);
+   } catch (error) {
+     console.error('Error in getAllPosts:', error);
+     res.status(500).json({ error: 'Internal Server Error', details: error.message });
    }
+};
 
-    
+  
 
-    if (!posts) return res.status(204).json({ 'message': 'No employees found.' });
-    res.json(posts);
-}
-//
 const createNewPost = async (req, res) => {
     console.log(req.body);
     console.log(req.file);
     if (!req?.body?.username || !req?.body?.desc) {
         return res.status(400).json({ 'message': 'First name, last name, and file are required' });
     }    
-    const buffer = await sharp(req.files[0].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    const buffer0 = await sharp(req.files[0].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
     const buffer1 = await sharp(req.files[1].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
     const buffer2 = await sharp(req.files[2].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
-    const buffer3 = await sharp(req.file[3].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
-    const buffer4 = await sharp(req.file[4].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
-    const buffer5 = await sharp(req.file[5].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    const buffer3 = await sharp(req.files[3].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    const buffer4 = await sharp(req.files[4].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    const buffer5 = await sharp(req.files[5].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
 
-    const imageName = randomImageName()
+    const imageName0 = randomImageName()
+    const imageName1 = randomImageName()
     const imageName2 = randomImageName()
     const imageName3 = randomImageName()
     const imageName4 = randomImageName()
     const imageName5 = randomImageName()
-    const imageName6 = randomImageName()
-    const params = {
+    const params0 = {
         Bucket: bucketNAME,
-        Key: imageName,
-        Body: buffer,
+        Key: imageName0,
+        Body: buffer0,
         ContentType: req.files[0].mimetype,
     }
-    const command = new PutObjectCommand(params)
-
+    const command = new PutObjectCommand(params0)
+    await s3.send(command)
     const params2 = {
         Bucket: bucketNAME,
-        Key: imageName2,
+        Key: imageName1,
         Body: buffer1,
         ContentType: req.files[1].mimetype,
     }
-    const command2 = new PutObjectCommand(params2)
 
+    const command2 = new PutObjectCommand(params2)
+    await s3.send(command2)
     const params3 = {
         Bucket: bucketNAME,
-        Key: imageName3,
+        Key: imageName2,
         Body: buffer2,
         ContentType: req.files[2].mimetype,
     }
 
     const command3 = new PutObjectCommand(params3)
-
+    await s3.send(command3)
     const params4 = {
         Bucket: bucketNAME,
-        Key: imageName4,
+        Key: imageName3,
         Body: buffer3,
         ContentType: req.files[3].mimetype,
     }
 
     const command4 = new PutObjectCommand(params4)
-
+    await s3.send(command4)
     const params5 = {
         Bucket: bucketNAME,
-        Key: imageName5,
+        Key: imageName4,
         Body: buffer4,
         ContentType: req.files[4].mimetype,
     }
 
     const command5 = new PutObjectCommand(params5)
-
+    await s3.send(command5)
     const params6 = {
         Bucket: bucketNAME,
-        Key: imageName6,
+        Key: imageName5,
         Body: buffer5,
         ContentType: req.files[5].mimetype,
     }
     const command6 = new PutObjectCommand(params6)
-    await s3.send(command)
-    await s3.send(command2)
-    await s3.send(command3)
-    await s3.send(command4)
-    await s3.send(command5)
     await s3.send(command6)
+ 
     try {
         const result = await Post.create({
             username: req.body.username,
             desc: req.body.desc,
-            images: [imageName, imageName2, imageName3, imageName4, imageName5, imageName6], // Access the array of files using req.files
+            images: [imageName0, imageName1, imageName2, imageName3, imageName4, imageName5],
+            email: req.body.email, // Access the array of files using req.files
         });
 
         res.status(201).json(result);
