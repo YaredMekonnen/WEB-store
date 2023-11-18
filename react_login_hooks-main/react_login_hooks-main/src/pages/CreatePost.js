@@ -23,16 +23,7 @@ const CreatePost = () => {
         const selectedImages = Array.from(e.target.files);
         setImages(selectedImages);
     };
-
-    // const handleImageChange2 = (e) => {
-    //     // const selectedImages = Array.from(e.target.files);
-    //     setImage2(e.target.files[0]);
-    // };
-
-    // const handleImageChange3 = (e) => {
-    //     // const selectedImages = Array.from(e.target.files);
-    //     setImage3(e.target.files[0]);
-    // };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,6 +32,7 @@ const CreatePost = () => {
             const formDataToSend = new FormData();
             formDataToSend.append('username', formData.username);
             formDataToSend.append('desc', formData.desc);
+            formDataToSend.append('email', formData.email);
             images.forEach((image, index) => {
                 formDataToSend.append('images', image);
             });
@@ -95,6 +87,18 @@ const CreatePost = () => {
                             className="form-control"
                             placeholder="Last Name"
                             name="desc"
+                            value={formData.desc}
+                            onChange={handleChange}
+                            required
+                        />
+                    </label>
+                    <label>
+                        DrakeEmail:
+                        <textarea
+                            type="text"
+                            className="form-control"
+                            placeholder="Drake Email"
+                            name="email"
                             value={formData.desc}
                             onChange={handleChange}
                             required
