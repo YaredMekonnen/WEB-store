@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Carousel } from "../components/Carousel";
 
 const Posts= ()=> {
     const [posts, setPosts] = useState([]);
@@ -55,44 +56,16 @@ const Posts= ()=> {
 
     return (
         <article>
-            <h2>Post List</h2>
             {posts.length ? (
                 <ul>
                     {posts.map((post, i) => (
                         <li key={i}>
-                            <div>
-                                <img
-                                    src={post.imageUrl0}
-                                    alt={`${post.email}`}
-                                    style={{ width: '150px', height: '150px' }}
-                                />
-                                <img
-                                    src={post.imageUrl1}
-                                    alt={`${post.email}`}
-                                    style={{ width: '150px', height: '150px' }}
-                                />
-                                <img
-                                    src={post.imageUrl2}
-                                    alt={`${post.email}`}
-                                    style={{ width: '150px', height: '150px' }}
-                                />
-                                <img
-                                    src={post.imageUrl3}
-                                    alt={`${post.email}`}
-                                    style={{ width: '150px', height: '150px' }}
-                                />
-                                <img
-                                    src={post.imageUrl4}
-                                    alt={`${post.email}`}
-                                    style={{ width: '150px', height: '150px' }}
-                                />
-                                <img
-                                    src={post.imageUrl5}
-                                    alt={`${post.email}`}
-                                    style={{ width: '150px', height: '150px' }}
-                                />
-                            </div>
-                            <div>{post.username} {post.desc} {post.email}</div>
+                          <Carousel images={[post.imageUrl0, post.imageUrl1, post.imageUrl2, post.imageUrl3, post.imageUrl4, post.imageUrl5]} username={post.username} desc={post.desc}/>
+                            {/* <div>{post.username} {post.desc} {post.email}</div> */}
+                            <br />
+                            <br />
+                            <br />
+                            <br />
                         </li>
                     ))}
                 </ul>
@@ -109,3 +82,47 @@ const Posts= ()=> {
 
 
 export default Posts;
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <div>
+<img
+    src={post.imageUrl0}
+    alt={`${post.email}`}
+    style={{ width: '150px', height: '150px' }}
+/>
+<img
+    src={post.imageUrl1}
+    alt={`${post.email}`}
+    style={{ width: '150px', height: '150px' }}
+/>
+<img
+    src={post.imageUrl2}
+    alt={`${post.email}`}
+    style={{ width: '150px', height: '150px' }}
+/>
+<img
+    src={post.imageUrl3}
+    alt={`${post.email}`}
+    style={{ width: '150px', height: '150px' }}
+/>
+<img
+    src={post.imageUrl4}
+    alt={`${post.email}`}
+    style={{ width: '150px', height: '150px' }}
+/>
+<img
+    src={post.imageUrl5}
+    alt={`${post.email}`}
+    style={{ width: '150px', height: '150px' }}
+/>
+</div> */}
