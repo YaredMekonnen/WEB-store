@@ -83,12 +83,12 @@ const createNewPost = async (req, res) => {
     if (!req?.body?.username || !req?.body?.desc) {
         return res.status(400).json({ 'message': 'First name, last name, and file are required' });
     }    
-    const buffer0 = await sharp(req.files[0].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
-    const buffer1 = await sharp(req.files[1].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
-    const buffer2 = await sharp(req.files[2].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
-    const buffer3 = await sharp(req.files[3].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
-    const buffer4 = await sharp(req.files[4].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
-    const buffer5 = await sharp(req.files[5].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    // const buffer0 = await sharp(req.files[0].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    // const buffer1 = await sharp(req.files[1].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    // const buffer2 = await sharp(req.files[2].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    // const buffer3 = await sharp(req.files[3].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    // const buffer4 = await sharp(req.files[4].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
+    // const buffer5 = await sharp(req.files[5].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
 
     const imageName0 = randomImageName()
     const imageName1 = randomImageName()
@@ -99,7 +99,7 @@ const createNewPost = async (req, res) => {
     const params0 = {
         Bucket: bucketNAME,
         Key: imageName0,
-        Body: buffer0,
+        Body: req.files[0].buffer,
         ContentType: req.files[0].mimetype,
     }
     const command = new PutObjectCommand(params0)
@@ -107,7 +107,7 @@ const createNewPost = async (req, res) => {
     const params2 = {
         Bucket: bucketNAME,
         Key: imageName1,
-        Body: buffer1,
+        Body: req.files[1].buffer,
         ContentType: req.files[1].mimetype,
     }
 
@@ -116,7 +116,7 @@ const createNewPost = async (req, res) => {
     const params3 = {
         Bucket: bucketNAME,
         Key: imageName2,
-        Body: buffer2,
+        Body: req.files[2].buffer,
         ContentType: req.files[2].mimetype,
     }
 
@@ -125,7 +125,7 @@ const createNewPost = async (req, res) => {
     const params4 = {
         Bucket: bucketNAME,
         Key: imageName3,
-        Body: buffer3,
+        Body: req.files[3].buffer,
         ContentType: req.files[3].mimetype,
     }
 
@@ -134,7 +134,7 @@ const createNewPost = async (req, res) => {
     const params5 = {
         Bucket: bucketNAME,
         Key: imageName4,
-        Body: buffer4,
+        Body: req.files[4].buffer,
         ContentType: req.files[4].mimetype,
     }
 
@@ -143,7 +143,7 @@ const createNewPost = async (req, res) => {
     const params6 = {
         Bucket: bucketNAME,
         Key: imageName5,
-        Body: buffer5,
+        Body: req.files[5].buffer,
         ContentType: req.files[5].mimetype,
     }
     const command6 = new PutObjectCommand(params6)
