@@ -80,7 +80,7 @@ const getAllPosts = async (req, res) => {
 const createNewPost = async (req, res) => {
     console.log(req.body);
     console.log(req.file);
-    if (!req?.body?.username || !req?.body?.desc) {
+    if (!req?.body?.username || !req?.body?.desc || !req?.body?.email || !req?.body?.phone || !req?.body?.idnumber) {
         return res.status(400).json({ 'message': 'First name, last name, and file are required' });
     }    
     // const buffer0 = await sharp(req.files[0].buffer).resize({height: 1920, width: 1080, fit: 'contain'}).toBuffer();
@@ -154,7 +154,9 @@ const createNewPost = async (req, res) => {
             username: req.body.username,
             desc: req.body.desc,
             images: [imageName0, imageName1, imageName2, imageName3, imageName4, imageName5],
-            email: req.body.email, // Access the array of files using req.files
+            email: req.body.email,
+            phone: req.body.phone,
+            idnumber:req.body.idnumber // Access the array of files using req.files
         });
 
         res.status(201).json(result);
@@ -209,10 +211,17 @@ const getPost = async (req, res) => {
     res.json(post);
 }
 
+
+
+
+
+
+
+
 module.exports = {
     getAllPosts,
     createNewPost,
     updatePost,
     deletePost,
-    getPost
+    getPost,
 }

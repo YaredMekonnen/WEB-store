@@ -23,7 +23,8 @@ const postSchema = new Schema({
         required: true
     },
     email: { type: String, required: true},
-    
+    phone:{ type: Number, required: true},
+    idnumber: { type: Number, required: true},
     refreshToken: [String]
 });
 
