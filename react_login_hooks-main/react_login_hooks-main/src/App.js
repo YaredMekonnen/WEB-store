@@ -14,6 +14,9 @@ import { Landing } from './pages/Landing';
 import { Routes, Route } from 'react-router-dom';
 import Users from './components/Users';
 import CreatePost from './pages/CreatePost';
+import { Payment } from './components/Payment';
+import Contact from './pages/Contact';
+import { Paymentpost } from './components/paymentpost';
 
 const ROLES = {
   'User': 2001,
@@ -38,6 +41,18 @@ export function App() {
         <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin, ROLES.User]} />}>
         <Route path="posts" element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Editor, ROLES.Admin]} />}>
           <Route path="" element={<Posts />} />
+        </Route>
+
+        <Route path="posts" element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Editor, ROLES.Admin]} />}>
+          <Route path="payment" element={<Payment />} />
+        </Route>
+
+        <Route path="posts" element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Editor, ROLES.Admin]} />}>
+          <Route path="contact" element={<Contact />} />
+        </Route>
+
+        <Route path="posts" element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Editor, ROLES.Admin]} />}>
+          <Route path="paymentpost" element={<Paymentpost />} />
         </Route>
 
         <Route path="posts" element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Editor, ROLES.Admin]} />}>

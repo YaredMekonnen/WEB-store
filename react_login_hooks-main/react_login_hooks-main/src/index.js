@@ -6,6 +6,7 @@ import { App } from './App.js';
 import { AuthProvider } from './context/AuthProvider';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+
 {
   /* The following line can be included in your src/index.js or App.js file */
 }

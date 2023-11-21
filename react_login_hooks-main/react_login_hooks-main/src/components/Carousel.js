@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 export function Carousel(props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [ispaid, setIsPaid] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
@@ -41,7 +42,7 @@ export function Carousel(props) {
                 height: '100%',
               }}
             >
-              <img src={image} className="w-full h-full object-cover" alt={`carousel-image-${index}`} />
+              <img  src={image} className="w-full h-full object-cover" alt={`carousel-image-${index}`} />
             </div>
           ))}
 
