@@ -15,6 +15,9 @@ router.route('/')
 
 router.route('/:id')
     .get(postController.getPost);
+router.route('/:id/updateViews')
+    .post(postController.updatePost);
+  
 module.exports = router;
 
 

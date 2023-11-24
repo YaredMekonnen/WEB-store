@@ -22,6 +22,10 @@ const postSchema = new Schema({
         type: [String],
         required: true
     },
+    views: {
+        type: Number,
+        default: 0,
+    },
     email: { type: String, required: true},
     phone:{ type: Number, required: true},
     idnumber: { type: Number, required: true},
