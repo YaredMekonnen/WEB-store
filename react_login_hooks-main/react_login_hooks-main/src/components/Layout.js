@@ -4,13 +4,17 @@ import { Footer } from "./Footer"
 
 const Layout = () => {
     return (
-        <main className="App">
-            <Navbar className="mb-0"/>
-            <main className="mt-100px">
-            <Outlet />
-            </main>
-            <Footer />
-        </main>
+            <>
+                <Navbar />
+                <main>
+                <Outlet />
+                </main>
+                <Footer /> 
+
+            </>
+
+             
+
     )
 }
 

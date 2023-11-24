@@ -5,12 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 
-
-
-
-
-
-/* * {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -24,7 +19,8 @@ html {
 
 body {
     max-height:screen-height;
-    background-color: rgb(134, 119, 119);
+    /* background-color: rgb(134, 119, 119); */
+    background-image: url("https://news.drake.edu/wp-content/uploads/2020/02/griff2-announcement-1.jpg");
 }
 
 .App {
@@ -151,4 +147,14 @@ li {
     height: 20px;
     width: 20px;
     margin: 0 5px 2px 2px;
-} */
+} 
+
+#outerdiv {
+    width: 45%;
+  }
+  
+  @media (max-width: 693px) {
+    #outerdiv {
+      width: 100%; /* Adjust the breakpoint and width accordingly */
+    }
+  }
